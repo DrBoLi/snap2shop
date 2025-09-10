@@ -1,0 +1,35 @@
+# Learn more about configuring your Shopify app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+name = "Snap2Shop"
+handle = "snap2shop-visual-search"
+client_id = "5137a34a12fe65e379f9a0264cf748fc"
+application_url = "http://localhost:3005" # Local development URL
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "snap2shopdemo.myshopify.com"
+include_config_on_deploy = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_products"
+
+[auth]
+redirect_urls = [
+  "http://localhost:3005/auth/shopify/callback"
+]
+
+[webhooks]
+api_version = "2023-10"
+
+[pos]
+embedded = false
+
+[[build.include]]
+source = "/*"
+target = "/"
+
+[[build.exclude]]
+source = "**/.env*"
+target = ""

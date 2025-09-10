@@ -1,0 +1,136 @@
+{{ 'visual-search.css' | asset_url | stylesheet_tag }}
+
+<div id="visual-search-widget" class="visual-search-widget">
+  <button 
+    id="visual-search-button" 
+    class="visual-search-button"
+    aria-label="Search by image"
+  >
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21 19L16.5 14.5C17.5 13.2 18 11.6 18 10C18 5.6 14.4 2 10 2S2 5.6 2 10S5.6 18 10 18C11.6 18 13.2 17.5 14.5 16.5L19 21L21 19ZM4 10C4 6.7 6.7 4 10 4S16 6.7 16 10S13.3 16 10 16S4 13.3 4 10Z" fill="currentColor"/>
+      <circle cx="10" cy="10" r="3" fill="currentColor"/>
+    </svg>
+    <span>Search by Photo</span>
+  </button>
+</div>
+
+<div id="visual-search-modal" class="visual-search-modal" style="display: none;">
+  <div class="visual-search-modal-overlay">
+    <div class="visual-search-modal-content">
+      <div class="visual-search-modal-header">
+        <h3>Visual Search</h3>
+        <button id="visual-search-close" class="visual-search-close" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="visual-search-modal-body">
+        <div id="visual-search-upload" class="visual-search-upload">
+          <div class="visual-search-upload-area">
+            <input 
+              type="file" 
+              id="visual-search-file-input" 
+              accept="image/*" 
+              capture="environment"
+              style="display: none;"
+            >
+            <div class="visual-search-upload-content">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.5 4H9C7.89543 4 7 4.89543 7 6V18C7 19.1046 7.89543 20 9 20H15C16.1046 20 17 19.1046 17 18V8.5L14.5 4Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M14 4V8H17" stroke="currentColor" stroke-width="2"/>
+                <circle cx="12" cy="13" r="2" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              <h4>Upload or take a photo</h4>
+              <p>Find similar products in our store</p>
+              <div class="visual-search-buttons">
+                <button id="visual-search-camera" class="visual-search-btn visual-search-btn-primary">
+                  Take Photo
+                </button>
+                <button id="visual-search-upload-btn" class="visual-search-btn visual-search-btn-secondary">
+                  Upload Image
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="visual-search-loading" class="visual-search-loading" style="display: none;">
+          <div class="visual-search-spinner"></div>
+          <p>Searching for similar products...</p>
+        </div>
+        
+        <div id="visual-search-results" class="visual-search-results" style="display: none;">
+          <h4>Similar Products</h4>
+          <div id="visual-search-results-grid" class="visual-search-results-grid">
+            <!-- Results will be populated here -->
+          </div>
+        </div>
+        
+        <div id="visual-search-error" class="visual-search-error" style="display: none;">
+          <p>Sorry, we couldn't process your image. Please try again with a different photo.</p>
+          <button id="visual-search-retry" class="visual-search-btn visual-search-btn-primary">
+            Try Again
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.VisualSearchConfig = {
+    apiUrl: '{{ shop.permanent_domain | default: 'demo-shop.myshopify.com' }}',
+    shopDomain: '{{ shop.permanent_domain | default: 'demo-shop.myshopify.com' }}'
+  };
+</script>
+
+<script src="{{ 'visual-search.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Visual Search",
+  "target": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_on_product_pages",
+      "label": "Show on product pages",
+      "default": true
+    },
+    {
+      "type": "checkbox", 
+      "id": "show_on_collection_pages",
+      "label": "Show on collection pages",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "button_position",
+      "label": "Button position",
+      "options": [
+        {
+          "value": "bottom-right",
+          "label": "Bottom Right"
+        },
+        {
+          "value": "bottom-left", 
+          "label": "Bottom Left"
+        },
+        {
+          "value": "top-right",
+          "label": "Top Right"
+        }
+      ],
+      "default": "bottom-right"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "#000000"
+    }
+  ]
+}
+{% endschema %}

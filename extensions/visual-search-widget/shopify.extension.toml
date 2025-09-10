@@ -1,0 +1,9 @@
+
+uid = "6c1d5e40-7ff7-958c-b8c8-d316df764137490abeff"
+type = "theme"
+name = "Visual Search Widget"
+
+[extension_points]
+  [extension_points.product_form]
+  [extension_points.collection]
+  [extension_points.index]

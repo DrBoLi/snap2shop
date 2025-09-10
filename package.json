@@ -1,0 +1,33 @@
+{
+  "name": "visual-search",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A Shopify app for visual product search using machine learning",
+  "author": "Visual Search Team",
+  "scripts": {
+    "build": "shopify app build",
+    "dev": "shopify app dev",
+    "info": "shopify app info",
+    "scaffold": "shopify app scaffold",
+    "deploy": "shopify app deploy",
+    "generate": "shopify app generate",
+    "backend:dev": "cd backend && uvicorn main:app --reload --host 0.0.0.0 --port 8000",
+    "backend:install": "cd backend && pip install -r requirements.txt",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down"
+  },
+  "keywords": [
+    "shopify",
+    "visual-search", 
+    "machine-learning",
+    "e-commerce",
+    "computer-vision"
+  ],
+  "devDependencies": {
+    "@shopify/cli": "^3.84.0"
+  },
+  "workspaces": [
+    "web",
+    "extensions/*"
+  ]
+}
